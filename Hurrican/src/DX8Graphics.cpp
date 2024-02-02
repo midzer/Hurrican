@@ -29,6 +29,8 @@
 #include "eglport.hpp"
 #endif
 
+#include <gl4esinit.h>
+
 // --------------------------------------------------------------------------------------
 // sonstige Variablen
 // --------------------------------------------------------------------------------------
@@ -69,6 +71,7 @@ DirectGraphicsClass::~DirectGraphicsClass() {}
 // D3D Initialisieren
 // --------------------------------------------------------------------------------------
 bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, std::uint32_t dwZ_Bits, bool VSync) {
+    initialize_gl4es();
     bool const isFullscreen = CommandLineParams.RunWindowMode != ScreenMode::WINDOW;
     int ScreenWidth = SCREENWIDTH;
     int ScreenHeight = SCREENHEIGHT;
@@ -150,7 +153,10 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 #else
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    //SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 #endif /* defined(USE_GLES1) */
 #endif /* SDL_VERSION_ATLEAST(2,0,0) */
 #endif // !EGL
@@ -158,7 +164,7 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
     // Setup SDL Screen
     if (isFullscreen) {
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+        //flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 #else /* SDL 1.2 */
         flags |= SDL_FULLSCREEN;
 #endif
@@ -167,7 +173,7 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
 #if SDL_VERSION_ATLEAST(2, 0, 0)
     // Create a window. Window mode MUST include SDL_WINDOW_OPENGL for use with OpenGL.
     Window =
-        SDL_CreateWindow("Hurrican", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, flags);
+        SDL_CreateWindow("Hurrican", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ScreenWidth, ScreenHeight, flags);
     if (Window == nullptr) {
         Protokoll << "Failed to create " << ScreenWidth << "x" << ScreenHeight
                   << " window: " << SDL_GetError() << std::endl;

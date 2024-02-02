@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/3rdparty/" "${CM
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     add_compile_options ("$<$<CONFIG:DEBUG>:-Wall;-Wextra;-pedantic;-Wcast-align;-Wcast-qual;-Wctor-dtor-privacy;-Wdisabled-optimization;-Wformat=2;-Winit-self;-Wmissing-include-dirs;-Wold-style-cast;-Woverloaded-virtual;-Wredundant-decls;-Wshadow;-Wsign-promo;-Wundef;-Wno-unused;-Wno-variadic-macros;-Wno-parentheses;-Wdouble-promotion;-fdiagnostics-show-option>")
-    #set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsingle-precision-constant -fno-rtti")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -O3 -fno-exceptions -fno-rtti -sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sUSE_SDL_MIXER=2")
 endif()
 
 # Add Ubsan build type
@@ -28,7 +28,7 @@ include(CheckIPOSupported)
 check_ipo_supported(RESULT result OUTPUT output)
 if(result)
     message(STATUS "IPO supported by compiler, enabled for release builds")
-    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+    #set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
 else()
     message(WARNING "IPO is not supported: ${output}")
 endif()
@@ -516,6 +516,7 @@ endif()
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src/SDLPort)
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/glm)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/gl4es)
 add_executable(${PROJECT_NAME} ${HURRICAN_SOURCES})
 
 # Enable pre compiled headers for way better compile times
@@ -534,17 +535,17 @@ ENDIF(OPENMPT)
 
 set(SDL2_BUILDING_LIBRARY TRUE)
 find_package(SDL2)
-if (SDL2_FOUND)
-    find_package(SDL2_image REQUIRED)
-    find_package(SDL2_mixer REQUIRED)
-else()
-    set(SDL_BUILDING_LIBRARY TRUE)
-    find_package(SDL REQUIRED)
-    INCLUDE(FindSDL_mixer REQUIRED)
-    INCLUDE(FindSDL_image REQUIRED)
-endif()
+#if (SDL2_FOUND)
+#    find_package(SDL2_image REQUIRED)
+#    find_package(SDL2_mixer REQUIRED)
+#else()
+#    set(SDL_BUILDING_LIBRARY TRUE)
+#    find_package(SDL REQUIRED)
+#    INCLUDE(FindSDL_mixer REQUIRED)
+#    INCLUDE(FindSDL_image REQUIRED)
+#endif()
 
-find_package(LibEpoxy 1.2 REQUIRED)
+find_package(LibEpoxy 1.2)
 
 include_directories(${LibEpoxy_INCLUDE_DIRS})
 

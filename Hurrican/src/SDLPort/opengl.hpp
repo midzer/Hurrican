@@ -1,7 +1,7 @@
 #ifndef _OPENGL_H_
 #define _OPENGL_H_
 
-#include <epoxy/gl.h>
+#include <GL/gl.h>
 
 // Do some sanity checks
 #if !defined(USE_GL1) && !defined(USE_GL2) && !defined(USE_GL3)

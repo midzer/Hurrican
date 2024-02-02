@@ -25,7 +25,7 @@
 #ifndef _SDL_FMOD_H_
 #define _SDL_FMOD_H_
 
-#include "SDL_mixer.h"
+#include <SDL2/SDL_mixer.h>
 #include "SDL_port.hpp"
 #if defined(USE_OPENMPT)
 #include <libopenmpt/libopenmpt.h>

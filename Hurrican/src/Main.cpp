@@ -32,7 +32,7 @@
 namespace fs = std::filesystem;
 
 #include <iomanip>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "CCracktro.hpp"
 #include "Console.hpp"
 #include "DX8Sound.hpp"

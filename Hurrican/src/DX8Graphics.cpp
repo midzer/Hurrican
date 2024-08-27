@@ -29,8 +29,6 @@
 #include "eglport.hpp"
 #endif
 
-#include <gl4esinit.h>
-
 // --------------------------------------------------------------------------------------
 // sonstige Variablen
 // --------------------------------------------------------------------------------------
@@ -71,7 +69,6 @@ DirectGraphicsClass::~DirectGraphicsClass() {}
 // D3D Initialisieren
 // --------------------------------------------------------------------------------------
 bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, std::uint32_t dwZ_Bits, bool VSync) {
-    initialize_gl4es();
     bool const isFullscreen = CommandLineParams.RunWindowMode != ScreenMode::WINDOW;
     int ScreenWidth = SCREENWIDTH;
     int ScreenHeight = SCREENHEIGHT;
@@ -88,7 +85,7 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
 
     int const ScreenDepth = CommandLineParams.ScreenDepth;
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-    uint32_t flags = SDL_WINDOW_OPENGL;
+    uint32_t flags = SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI;
 #else /* SDL 1.2 */
 #if defined(USE_EGL_SDL) || defined(USE_EGL_RAW) || defined(USE_EGL_RPI)
     uint32_t flags = SDL_SWSURFACE;
@@ -906,7 +903,9 @@ void DirectGraphicsClass::SetupFramebuffers() {
     if (CommandLineParams.LowRes) {
         glViewport(0, 0, LOWRES_SCREENWIDTH, LOWRES_SCREENHEIGHT);
     } else {
-        glViewport(WindowView.x, WindowView.y, WindowView.w, WindowView.h); /* Setup our viewport. */
+        int drawableWidth, drawableHeight;
+	    SDL_GL_GetDrawableSize(Window, &drawableWidth, &drawableHeight);
+	    glViewport(WindowView.x, WindowView.y, drawableWidth, drawableHeight); /* Setup our viewport. */
     }
     Protokoll << "Window viewport: " << WindowView.w << "x" << WindowView.h << " at " << WindowView.x << "x"
               << WindowView.y << std::endl;

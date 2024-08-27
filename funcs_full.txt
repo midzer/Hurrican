@@ -1,0 +1,21 @@
+[
+    "main",
+    "Heartbeat()",
+    "GameInit2()",
+    "DirectGraphicsSprite::LoadImage(std::__2::basic_string<char, std::__2::char_traits<char>, std::__2::allocator<char>> const&, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short, unsigned short)",
+    "DisplayLoadInfo(char const*)",
+    "DirectGraphicsClass::ShowBackBuffer()",
+    "PartikelsystemClass::LoadSprites()",
+    "ProjectileListClass::LoadSprites()",
+    "SoundManagerClass::LoadWave(std::__2::basic_string<char, std::__2::char_traits<char>, std::__2::allocator<char>> const&, int, bool)",
+    "MenuClass::DoMenu()",
+    "InitNewGame()",
+    "PlayerClass::InitPlayer(int)",
+    "StartIntro()",
+    "InitNewGameLevel()",
+    "TileEngineClass::LoadLevel(std::__2::basic_string<char, std::__2::char_traits<char>, std::__2::allocator<char>> const&)",
+    "LoadGegnerGrafik(int)",
+    "SDL_GL_SwapWindow",
+    "Emscripten_GLES_SwapWindow",
+    "dynCall_v"
+]

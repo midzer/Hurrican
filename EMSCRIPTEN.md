@@ -10,5 +10,5 @@ emmake make
 ## Link
 
 ```
-em++ -flto -O3 -fno-exceptions -fno-rtti */*.o *.o -o index.html -sFULL_ES2=1 -lGL -sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sSDL2_IMAGE_FORMATS='["png"]' -sUSE_SDL_MIXER=2 -sSDL2_MIXER_FORMATS='["mod","wav"]' -sTOTAL_MEMORY=384mb -sASYNCIFY -sASYNCIFY_STACK_SIZE=81920 -sASYNCIFY_IGNORE_INDIRECT -sASYNCIFY_ONLY=@../../../../../funcs.txt -sENVIRONMENT=web --preload-file data/ --preload-file lang/ --closure 1 -Wl,-u,fileno
+em++ -flto -O3 -fno-exceptions -fno-rtti */*.o *.o -o index.html -sFULL_ES2=1 -lGL -sUSE_SDL=2 -sUSE_SDL_IMAGE=2 -sSDL2_IMAGE_FORMATS='["png"]' -sUSE_SDL_MIXER=2 -sSDL2_MIXER_FORMATS='["mod","wav"]' -sASYNCIFY -sASYNCIFY_IGNORE_INDIRECT -sASYNCIFY_ONLY=@../../../../../funcs.txt -sENVIRONMENT=web --preload-file data/ --preload-file lang/ --closure 1 -Wl,-u,fileno -sINITIAL_HEAP=64mb
 ```
